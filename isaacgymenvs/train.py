@@ -64,7 +64,8 @@ def preprocess_train_config(cfg, config_dict):
     train_cfg['population_based_training'] = cfg.pbt.enabled
     train_cfg['pbt_idx'] = cfg.pbt.policy_idx if cfg.pbt.enabled else None
 
-    train_cfg['full_experiment_name'] = cfg.get('full_experiment_name')
+    # I commented this to prevent new runs to create new folders
+    #train_cfg['full_experiment_name'] = cfg.get('full_experiment_name')
 
     print(f'Using rl_device: {cfg.rl_device}')
     print(f'Using sim_device: {cfg.sim_device}')

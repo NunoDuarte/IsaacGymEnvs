@@ -2,6 +2,7 @@ from rl_games.common.algo_observer import AlgoObserver
 
 from isaacgymenvs.utils.utils import retry
 from isaacgymenvs.utils.reformat import omegaconf_to_dict
+from datetime import datetime
 
 
 class WandbAlgoObserver(AlgoObserver):
@@ -19,7 +20,7 @@ class WandbAlgoObserver(AlgoObserver):
 
         import wandb
 
-        wandb_unique_id = f"uid_{experiment_name}"
+        wandb_unique_id = f"uid_{experiment_name}" + datetime.now().strftime("_%m-%d-%H-%M-%S")
         print(f"Wandb using unique id {wandb_unique_id}")
 
         cfg = self.cfg
@@ -29,12 +30,12 @@ class WandbAlgoObserver(AlgoObserver):
         def init_wandb():
             wandb.init(
                 project=cfg.wandb_project,
-                entity=cfg.wandb_entity,
+                #entity=cfg.wandb_entity,
                 group=cfg.wandb_group,
-                tags=cfg.wandb_tags,
+                #tags=cfg.wandb_tags,
                 sync_tensorboard=True,
                 id=wandb_unique_id,
-                name=experiment_name,
+                name=wandb_unique_id,
                 resume=True,
                 settings=wandb.Settings(start_method='fork'),
             )
