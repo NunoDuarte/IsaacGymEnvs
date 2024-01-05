@@ -20,7 +20,7 @@ class WandbAlgoObserver(AlgoObserver):
 
         import wandb
 
-        wandb_unique_id = f"uid_{experiment_name}" + datetime.now().strftime("_%m-%d-%H-%M-%S")
+        wandb_unique_id = f"{experiment_name}" + datetime.now().strftime("_%m-%d-%H-%M")
         print(f"Wandb using unique id {wandb_unique_id}")
 
         cfg = self.cfg
@@ -34,7 +34,7 @@ class WandbAlgoObserver(AlgoObserver):
                 group=cfg.wandb_group,
                 #tags=cfg.wandb_tags,
                 sync_tensorboard=True,
-                id=wandb_unique_id,
+                id=experiment_name,
                 name=wandb_unique_id,
                 resume=True,
                 settings=wandb.Settings(start_method='fork'),
