@@ -100,6 +100,7 @@ def launch_rlg_hydra(cfg: DictConfig):
     from isaacgymenvs.learning import amp_models
     from isaacgymenvs.learning import amp_network_builder
     import isaacgymenvs
+    import il_games
 
 
     time_str = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -187,6 +188,7 @@ def launch_rlg_hydra(cfg: DictConfig):
     # register new AMP network builder and agent
     def build_runner(algo_observer):
         runner = Runner(algo_observer)
+        runner = il_games.register(runner)
         runner.algo_factory.register_builder('amp_continuous', lambda **kwargs : amp_continuous.AMPAgent(**kwargs))
         runner.player_factory.register_builder('amp_continuous', lambda **kwargs : amp_players.AMPPlayerContinuous(**kwargs))
         model_builder.register_model('continuous_amp', lambda network, **kwargs : amp_models.ModelAMPContinuous(network))
